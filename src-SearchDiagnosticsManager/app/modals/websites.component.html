@@ -1,0 +1,22 @@
+<div style="position: relative; height: calc(100% - 20px); right: 10px">
+  <div style="height: calc(100% - 10px); overflow: hidden; overflow-y: auto">
+    <h2>Websites - {{searchDiagnosticsService.CurrentVersion.IndexName}}</h2>
+    <div class="form-inline form-group">
+      <label>Filter</label>
+      <div class="input-group">
+        <input class="form-control" (keyup)="Filter()" [(ngModel)]="SearchTerm" />
+        <div class="input-group-addon clickable" (click)="ClearSearch()">
+          <i class="fa fa-remove"></i>
+        </div>
+      </div>
+    </div>
+    <div class="table-container">
+      <table class="table-condensed">
+        <tbody><tr *ngFor="let site of ViewingSites"><td>{{site}}</td></tr></tbody>
+      </table>
+    </div>
+    <div class="modal-button-group">
+      <button (click)="dialogref.close()" class="btn btn-default">Close</button>
+    </div>
+  </div>
+</div>

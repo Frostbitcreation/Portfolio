@@ -1,0 +1,127 @@
+.controls-spaced * {
+  margin-left: 5px;
+}
+
+.controls-spaced {
+  margin-left: 5px;
+}
+
+span.created, span.updated, span.deleted, span.enabled, span.disabled {
+  font-weight: bold;
+}
+
+span.created {
+  color: #28b128;
+}
+
+span.updated {
+  color: #569abb;
+}
+
+span.deleted {
+  color: red;
+}
+
+span.enabled {
+  color: #569abb;
+}
+
+span.disabled {
+  color: goldenrod;
+}
+
+.hidden-tabs > .mat-tab-header {
+  height: 0px;
+}
+
+div.modal-button-group {
+  position: absolute;
+  bottom: -25px;
+  right: -10px;
+}
+
+*:focus {
+  outline: none;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+hr {
+  border-color: #eee;
+  margin: .3em 0em;
+}
+
+.no-pad {
+  padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.top-spacer {
+  margin-top: 3px;
+}
+
+.btn-default.btn-on.active {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: white;
+}
+
+.btn-default.btn-off.active {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  color: white;
+}
+
+h6:hover {
+  cursor: pointer;
+}
+
+clickDrop {
+    color: #000;
+}
+
+.clickDrop:hover {
+  cursor: pointer;
+}
+
+th {
+    border: solid 1px #eee;
+    padding: 2px 4px;
+}
+
+td {
+  border: solid 1px #eee;
+  padding: 2px;
+}
+
+tr {
+    border: solid 2px #eee
+}
+
+table {
+    width: 100%;
+    margin: 3px 0px;
+}
+
+div.panel-body {
+    padding-bottom: 0;
+}
+
+.HoverCursor:hover {
+    cursor: pointer;
+}
+
+.red-snackbar {
+  background-color: rgb(180, 35, 35);
+  color: white;
+}
+
+  .red-snackbar button {
+    color: white
+  }

@@ -1,0 +1,28 @@
+<div class="page-header">
+  <h1>
+    Search Diagnostics Manager <i (click)="OpenHelp()" class="fa fa-question-circle clickable"></i>
+  </h1>
+</div>
+<!-- Tabs -->
+<div *ngIf="this._searchDiagnosticsService.CurrentVersion">
+  <ngb-tabset>
+    <ngb-tab title="Product Search">
+      <ng-template ngbTabContent>
+        <search-result></search-result>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Search Stats">
+      <ng-template ngbTabContent>
+        <search-stats></search-stats>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Search Analyzer">
+      <ng-template ngbTabContent>
+        <search-analyzer></search-analyzer>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+</div>
+<div style="display:none">
+  <mat-spinner class="mat-spinner mat-progress-spinner mat-primary mat-progress-spinner-indeterminate-animation" mode="indeterminate" role="progressbar" style="margin-left: 42%; margin-top: 100px; width: 155px; height: 155px;" ng-reflect-diameter="150"><svg focusable="false" preserveAspectRatio="xMidYMid meet" viewBox="0 0 155 155" style="width: 155px; height: 155px;"><circle cx="50%" cy="50%" r="70" style="animation-name: mat-progress-spinner-stroke-rotate-150; stroke-dasharray: 439.823px; stroke-width: 9.67742%;"></circle></svg></mat-spinner>
+</div>

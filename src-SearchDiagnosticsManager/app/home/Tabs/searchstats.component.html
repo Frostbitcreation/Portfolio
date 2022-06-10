@@ -1,0 +1,68 @@
+<div *ngIf="Loading == true">
+  <!-- Loading animation - Purely for User Experience-->
+  <mat-spinner [diameter]="150" style="margin-left:42%; margin-top: 100px;"></mat-spinner>
+</div>
+
+<div id="tabsetBody" class="container-fluid no-pad top-spacer" style="width:100%;">
+
+  <p class="top-spacer">Enter a search term to show relevant search stats across all websites from the last 7 days</p>
+  <hr />
+
+  <div class="col-md-12 no-pad top-spacer">
+    <div class="form-group form-inline top-spacer">
+      <label>Search Term</label>
+      <input style="width: 230px;" placeholder="Enter search..." class="form-control" id="prodSearch" [(ngModel)]="prodSearch" autocomplete="off"/>
+      <button type="submit" class="btn btn-primary" id="prodSearchBtn" (click)="MakeSearch(prodSearch);">Submit</button>
+    </div>
+    <hr />
+
+    <div *ngIf="StatsHits">
+      <div class="col-md-12 no-pad" *ngIf="StatsHits.hits.length == 0">
+        <!--No Search Data-->
+        Your search returned no results. Please make the search on a website and wait <strong>5 minutes</strong> before trying again
+      </div>
+
+      <div *ngIf="StatsHits.hits.length != 0">
+        <div class="form-group form-inline">
+          We found your search across these sites
+          <select class="form-control" [(ngModel)]="SelectedSite" (change)="HandleSiteChangeEvent();">
+            <option *ngFor="let site of ParsedWebsites" [ngValue]="site">{{site.SWVALUE}} ({{site.SWSTORE}})</option>
+          </select>
+        </div>
+        <hr />
+        <div *ngIf="SiteFiltered" class="col-md-12 no-pad">
+          <label>Filtered Search Data</label>
+          <hr />
+          <!--Selected Search Data-->
+          <div>
+            <div style="height:inherit"><ngx-json-viewer [json]="SiteFiltered[0]._source"></ngx-json-viewer></div>
+          </div>
+          <div class="col-md-12 no-pad border-bot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Entire Search Result -->
+  <div class="container col-md-12 no-pad top-spacer" *ngIf="StatsHits">
+    <div *ngIf="!StatsHits.hits">No Search Data</div>
+    <div class="panel">
+      <div class="panel-heading">
+        <h6 class="panel-title" data-toggle="collapse" href="#collapse1">
+          <i  id="Data" class="fa fa-caret-right"></i> Raw Search Data
+        </h6>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+
+        <div class="panel-body" style="overflow-y:scroll; max-height: 450px; padding: 0;">
+          <div class="col-md-12 no-pad" style="overflow: auto; padding: 4px; margin: 4px;">
+            <div style="height:inherit"><ngx-json-viewer [json]="StatsHits" [expanded]="false"></ngx-json-viewer></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<br />
+<footer> </footer>

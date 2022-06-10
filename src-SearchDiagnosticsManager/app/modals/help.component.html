@@ -1,0 +1,57 @@
+<div class="page-header">
+  <h1>Search Diagnostic Manager</h1>
+</div>
+<div>
+  <h2>
+    Help
+    <button style="margin-bottom: 20px" (click)="Close()" class="btn btn-default pull-right">Back</button>
+  </h2>
+
+  <div class="col-xs-12"></div>
+  <h3>Introduction</h3>
+  <p>
+    Search Diagnostics Manager is a collection of tools that will allow you to make a search against a live index <strong>(product search)</strong> or see the stats for past searches <strong>(search stats)</strong>.<br />
+    <br />
+    <span style="color:green;font-weight:bold;">&#10004;</span>You will use the tool to search with a product code against an index.<br />
+    <span style="color:green;font-weight:bold;">&#10004;</span>You will use the tool to view statistical data from past searches.<br />
+    <span style="color:red;font-weight:bold;">&#10005;</span>You will not use the tool to fix product data or search index configurations.
+  </p>
+
+  <h3>How Search Diagnostics Manager Works</h3>
+  <p>
+    The search diagnostics tool is powered by the live <strong>indices</strong> in Elasticsearch.<br />
+  </p>
+  <p>
+    At the bottom of each page the section labelled <strong>Raw Search Data</strong> is a collapsible section that shows the entire search result from your search.<br />
+    Discrepancies between returned data that is not shown in the selected result can be identified here.
+  </p>
+
+  <h4>Product Search</h4>
+  <p>
+    The product search tab is built around the product <strong>indices</strong> that contains product search data, an index.<br />
+    The product search page is built to allow searches against the product indices, indices may contain the search data for one or more websites;<br />
+    indices staring with <i>"sd-search"</i> are related to all Sports Direct websites and apps, an index such as <i>"lifestyle-search"</i> can contain data for multiple fascias.
+  </p>
+  <p>
+    The tool <strong>will not</strong> allow a search until an index has been selected to search against.<br />
+    After selecting an index, entering a valid product Id (2 letters or numbers followed by 4 numbers e.g. AL4894 or 781108) will allow you to submit a search on the index.
+  </p>
+  <p>
+    When data is returned, the tool will select the first available website (Alphabetical order A-Z) and colour code (Numerical order descending) and displays that product's data.<br />
+    Changing the selected website will automatically select the first available colour, updating the shown product data.<br />
+    Changing the selected colour will update the selected product data.
+  </p>
+
+  <h4>Search Stats</h4>
+  <p>
+    The search stats page is built to find search statistics for a given search, when making a search the returned result is based
+    on any searches within the last 7 days that <strong>exactly match</strong> the given search term.<br />
+  </p>
+  <p>
+    Upon a successful search the product data shown will default to an available fascia.<br />
+    Selecting a new website will show the most recent search data for that website.<br />
+    In the event that there is no search data across any webpage, going to a website and making the search will <strong>(after a few minutes)</strong> update the search stats index with the new search.
+  </p>
+  <br />
+  <div class="col-xs-12"><button style="margin-bottom: 20px" (click)="Close()" class="btn btn-default pull-right">Back</button></div>
+</div>

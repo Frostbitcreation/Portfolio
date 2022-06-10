@@ -1,0 +1,79 @@
+<div *ngIf="Loading == true">
+  <!-- Loading animation - Purely for User Experience-->
+  <mat-spinner [diameter]="150" style="margin-left:42%; margin-top: 100px;"></mat-spinner>
+</div>
+<div id="tabsetBody" class="container-fluid no-pad top-spacer" style="width:100%;">
+  <p class="top-spacer">Select an index and enter a 6 digit Product Id to show all data in the search index for that product</p>
+  <hr />
+  <div class="col-md-12 no-pad top-spacer">
+    <div class="form-group form-inline">
+      <label> Index </label>
+      <select *ngIf="_searchDiagnosticsService.CurrentVersion && _searchDiagnosticsService.CurrentVersion.Websites" (change)="HandleChangeIndexEvent()" class="form-control controls-spaced" [(ngModel)]="IndexSelect">
+        <option *ngFor="let index of IndexSelector" value="{{IndexSelector.indexOf(index)}}" ng-model="IndexSelect">{{index}}</option>
+      </select>
+      <br />
+      <!-- Search -->
+      <div style="padding-top: 7px;">
+        <label>Product ID</label>
+        <input placeholder="Enter Product Id..." class="form-control" id="prodId" [(ngModel)]="prodId" maxlength="6" autocomplete="off"/>
+        <button type="submit" class="btn btn-primary" (click)="MakeElasticSearch(prodId);" id="prodIdBtn"[disabled]="this.IndexSelect == 0">Submit</button>
+      </div>
+
+    </div>
+    <hr />
+    <div *ngIf="SearchObject">
+      <div *ngIf="SearchObject.hits.hits.length > 0">
+        <div>
+          <!-- Product Name + Colour Variant -->
+          <div>
+            <div class="form-inline">
+              <label> Websites </label>
+              <select class="form-control controls-spaced top-spacer" [(ngModel)]="SelectedSite" (change)="HandleSiteChangeEvent();">
+                <option *ngFor="let site of Sites" [ngValue]="site">{{site.SWVALUE}} ({{site.SHORTNAME}})</option>
+              </select>
+
+              <div *ngIf="ColourList" class="form-inline top-spacer">
+                <label> Colour Variants </label>
+                <select class="form-control controls-spaced" [(ngModel)]="SelectedColour" (change)="HandleColourChangeEvent();">
+                  <option *ngFor="let colour of ColourList" [ngValue]="colour">{{colour.Colour}} ({{colour.Code}})</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Attribute JsonViewer -->
+        <div *ngIf="SearchData" class="top-spacer">
+          <label> Product Data </label>
+          <hr />
+          <div style="height:inherit"><ngx-json-viewer [json]="SearchData" [expanded]="false"></ngx-json-viewer></div>
+        </div>
+      </div>
+      <div class="top-spacer" *ngIf="SearchObject.hits.hits.length <= 0">No Product Results Available. Review the raw search data or make a new search.</div>
+    </div>
+  </div>
+
+  <!-- Json Beautified/Raw Container -->
+  <div *ngIf="SearchResult != &quot;&quot;" class="col-md-12 no-pad">
+
+    <div class="panel">
+      <div class="panel-heading">
+        <h6 class="panel-title" data-toggle="collapse" href="#collapse1">
+          <i class="fa fa-caret-right"></i> Raw Search Data
+        </h6>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse">
+
+        <div class="panel-body" style="overflow-y:scroll; max-height: 600px; padding: 0;">
+          <div class="container col-md-12" style="overflow: auto; padding: 4px; margin: 4px;">
+            <div style="height:inherit"><ngx-json-viewer [json]="SearchObject" [expanded]="false"></ngx-json-viewer></div>
+          </div>
+          <div *ngIf="!SearchObject">No Search Data, please try again</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<br />
+<footer> </footer>

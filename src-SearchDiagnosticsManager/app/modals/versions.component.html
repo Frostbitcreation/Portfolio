@@ -1,0 +1,39 @@
+<div class="page-header">
+  <h1>Search Diagnostics Manager</h1>
+</div>
+<div>
+  <h2>Index Versions - {{searchDiagnosticsService.CurrentVersion.IndexName}}</h2>
+  <br />
+  <div class="form-group form-inline controls-spaced">
+    <label>Websites </label>
+    <span class="controls-spaced">{{homeComponent.FormatWebsites()}}</span>
+    <span *ngIf="searchDiagnosticsService.CurrentVersion && searchDiagnosticsService.CurrentVersion.Websites.length > homeComponent.MaxWebsitesShown">
+      ... and {{searchDiagnosticsService.CurrentVersion.Websites.length - homeComponent.MaxWebsitesShown}} more. <i (click)="homeComponent.OpenWebsites()" class="fa fa-info-circle" [matTooltipPosition]="'below'"
+                                                                                                                    [matTooltip]="homeComponent.FormatWebsiteTooltip()"></i>
+    </span>
+  </div>
+  <div class="table-container">
+    <table class="table table-hover table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Version Number</th>
+          <th>Vesion Comment</th>
+          <th>Created By</th>
+          <th>Created Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let version of Versions">
+          <td>{{version.VersionNumber + (version.Live ? " (Live)" : (version.Working ? " (Working)" : ""))}}</td>
+          <td>{{version.Comment}}</td>
+          <td>{{version.CreatedBy}}</td>
+          <td>{{version.CreatedDateTime | date: 'dd-MM-yyyy HH:mm'}}</td>
+          <td><button [disabled]="version.VersionId == searchDiagnosticsService.CurrentVersion.VersionId" class="btn btn-default" (click)="SelectVersion(version)">View</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <button (click)="Close()" style="margin-bottom:10px" class="btn btn-default pull-right">Cancel</button>
+</div>

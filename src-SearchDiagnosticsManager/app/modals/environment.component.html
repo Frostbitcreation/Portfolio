@@ -1,0 +1,24 @@
+<div style="position: relative; height: calc(100% - 20px)">
+  <div style="height: calc(100% - 15px)">
+    <h4>Environment</h4>
+    <hr>
+    <div style="margin: auto; margin-bottom: 5%; width: 90%; padding-top: 8px;">
+      <div style="width: 30%; display: inline-block">
+        <p style="margin: 7px 0px 0px 5px;">Preview</p>
+      </div>
+      <div style="width: 60%; display: inline">
+        <div class="btn-group" id="status" data-toggle="buttons">
+          <label class="btn btn-default btn-on active">
+            <input type="radio" value="live" name="multifeatured_module[module_id][status]" checked="checked" onclick="goLive()">Live
+          </label>
+          <label class="btn btn-default btn-off">
+            <input type="radio" value="preview" name="multifeatured_module[module_id][status]"  onclick="goPreview()">Preview
+          </label>
+        </div>
+      </div>
+    </div>
+    <div style="width: 25%; margin: auto;">
+      <button (click)="dialogref.close()" class="btn btn-primary">Close</button>
+    </div>
+  </div>
+</div>

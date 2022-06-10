@@ -1,0 +1,109 @@
+<div *ngIf="Loading == true">
+  <!-- Loading animation - Purely for User Experience-->
+  <mat-spinner [diameter]="150" style="margin-left:42%; margin-top: 100px;"></mat-spinner>
+</div>
+<div id="tabsetBody" class="container-fluid no-pad top-spacer" style="width:100%;">
+  <p class="top-spacer">Select an index and enter a product ID, then enter the search terms you want to test against</p>
+  <hr />
+  <div class="col-md-12 no-pad top-spacer">
+    <div class="form-group form-inline">
+      <label> Index </label>
+      <select *ngIf="_searchDiagnosticsService.CurrentVersion && _searchDiagnosticsService.CurrentVersion.Websites" (change)="HandleChangeIndexEvent()" class="form-control" [(ngModel)]="IndexSelect">
+        <option *ngFor="let index of IndexSelector" value="{{IndexSelector.indexOf(index)}}" ng-model="IndexSelect">{{index}}</option>
+      </select>
+      <!-- Search -->
+      <label>Search</label>
+      <input placeholder="Enter Product Id..." class="form-control" [(ngModel)]="analyzerProduct" id="anzerProd" autocomplete="off" />
+      <input placeholder="Enter Search Term..." class="form-control" [(ngModel)]="analyzerSearch" id="anzerSearch" autocomplete="off" />
+      <button type="submit" class="btn btn-primary" (click)="MakeAnalyzerSearch(analyzerProduct, analyzerSearch)" id="anzerSearchBtn" [disabled]="this.IndexSelect == 0 || analyzerProduct == null || analyzerSearch == null">Submit</button>
+    </div>
+    <hr />
+  </div>
+  <div *ngIf="SearchProduct != null">
+    <!-- Search Results -->
+    <div *ngIf="SearchProduct.length <= 1">Product not found in database</div>
+    <div *ngIf="SearchProduct.length >= 1">
+      <div *ngIf="BadTerms.length != 0">
+        <label>Search Terms Not Found <i class="fa fa-info-circle" [matTooltipPosition]="'right'" [matTooltip]="FormatAnalyzerTermsTooltip()"></i></label>
+        <hr />
+        <p *ngIf="BadTerms.Length != 0">
+          {{BadTerms.toString().replace(SearchTermRegex,", ")}}
+        </p>
+        <hr />
+      </div>
+      <label>Test Explained</label>
+      <hr />
+      <table class="padding-y-xs">
+        <thead>
+          <tr>
+            <th>Search Fields <i class="fa fa-info-circle" [matTooltipPosition]="'right'" [matTooltip]="FormatFieldsHeaderTooltip()"></i></th>
+            <th>Search Index Analyzer <i class="fa fa-info-circle" [matTooltipPosition]="'below'" [matTooltip]="FormatIndexHeaderTooltip()"></i></th>
+            <th>Search Query Analyzer <i class="fa fa-info-circle" [matTooltipPosition]="'below'" [matTooltip]="FormatQueryHeaderTooltip()"></i></th>
+            <th>Analyzer Differences <i class="fa fa-info-circle" [matTooltipPosition]="'below'" [matTooltip]="FormatDifferencesHeaderTooltip()"></i></th>
+            <th>Query Terms <i class="fa fa-info-circle" [matTooltipPosition]="'below'" [matTooltip]="FormatTermsHeaderTooltip()"></i></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Brand -->
+          <tr *ngFor="let attribute of SearchProduct; let i = index;" [attr.data-index]="i">
+            <th>{{attribute.AttributeName}} <i class="fa fa-info-circle" [matTooltipPosition]="'right'" [matTooltip]="FormatDataTooltip()" *ngIf="i == 0"></i></th>
+
+            <!-- Index -->
+            <td>
+              <div class="padding-xs">
+                <div class="padding-xs">
+                  <p>{{attribute.IndexAttributeValue[attribute.IndexAttributeValue.length - 1].TokenValues.toString().replace(SearchTermRegex,", ")}}</p>
+                </div>
+
+                <div *ngIf="attribute.IndexAttributeValue.ShowTokens">
+                  <div *ngFor="let analyzer of attribute.IndexAttributeValue;">{{analyzer.TokenName.toString()}}: {{analyzer.TokenValues.toString().replace(SearchTermRegex,", ")}}</div>
+                </div>
+
+                <a (click)="attribute.IndexAttributeValue.ShowTokens = !attribute.IndexAttributeValue.ShowTokens" class="padding-sm HoverCursor">
+                  {{attribute.IndexAttributeValue.ShowTokens ? "Hide" : "Show" }} Analyzers
+                </a>
+              </div>
+            </td>
+
+            <!-- Query -->
+            <td>
+              <div class="padding-xs">
+                <div class="padding-xs">
+                  <p>{{attribute.QueryAttributeValue[attribute.QueryAttributeValue.length - 1].TokenValues.toString().replace(SearchTermRegex,", ")}}</p>
+                </div>
+                <div *ngIf="attribute.QueryAttributeValue.ShowTokens">
+                  <div *ngFor="let analyzer of attribute.QueryAttributeValue;">{{analyzer.TokenName.toString()}}: {{analyzer.TokenValues.toString().replace(SearchTermRegex,", ")}}</div>
+                </div>
+
+                <a (click)="attribute.QueryAttributeValue.ShowTokens = !attribute.QueryAttributeValue.ShowTokens" class="padding-sm HoverCursor">
+                  {{attribute.IndexAttributeValue.ShowTokens ? "Hide" : "Show" }} Analyzers
+                </a>
+              </div>
+            </td>
+
+            <!-- Differences -->
+            <td>
+              <div class="panel-heading">
+                <p>
+                  {{attribute.Comparison.toString().replace(SearchTermRegex,", ")}}
+                </p>
+              </div>
+            </td>
+
+            <!-- Query Terms -->
+            <td>
+              <div class="panel-heading">
+                <p *ngIf="ComparisonTerms[i].Tokens != null">
+                  {{ComparisonTerms[i].Tokens.toString().replace(SearchTermRegex,", ")}}
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+<br />
+<footer> </footer>
