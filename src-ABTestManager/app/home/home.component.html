@@ -1,0 +1,97 @@
+<div class="page-header">
+  <h1>
+    A/B Test Manager <i (click)="OpenHelp()" class="fa fa-question-circle clickable"></i>
+  </h1>
+</div>
+<p>Manage existing Google Optimize Experiments and add new ones to internal records.</p>
+<hr />
+<div *ngIf="_service.Sites">
+  <div class="form-group form-inline margin-top-sm">
+    <label>Website</label>
+    <select [(ngModel)]="_service.SelectedSite" (change)="_service.SelectionChange()" class="form-control">
+      <option [ngValue]="null" selected>All Websites</option>
+      <option *ngFor="let website of _service.Sites" [ngValue]="website">{{website}}</option>
+    </select>
+
+    <label>Experiment Type</label>
+    <select [(ngModel)]="_service.SelectedType" (change)="_service.SelectionChange()" class="form-control">
+      <option [ngValue]="null" selected>All Types</option>
+      <option *ngFor="let type of _service.Types" [ngValue]="type">{{type}}</option>
+    </select>
+
+    <label>Status</label>
+    <select [(ngModel)]="_service.SelectedStatus" (change)="_service.SelectionChange()" class="form-control">
+      <option [ngValue]="null">All</option>
+      <option [ngValue]="'Enabled'" selected>Enabled</option>
+      <option [ngValue]="'Disabled'">Disabled</option>
+      <option [ngValue]="'Preview'">Preview</option>
+    </select>
+
+    <button (click)="FlushCache()" class="btn btn-default pull-right" [disabled]="CanFlush == false"><i class="fa fa-cogs"></i> Flush</button>
+    <button (click)="OpenCreate()" class="btn btn-primary pull-right" style="margin-right: 5px;"><i class="fa fa-plus"></i> Create</button>
+  </div>
+  <hr />
+
+  <!-- Table Start -->
+  <table *ngIf="_service.Filtered.length >= 1">
+    <thead>
+      <tr>
+        <th>Experiment Name</th>
+        <th>Website</th>
+        <th>Description</th>
+        <th>Experiment Type</th>
+        <th>Cookie Value</th>
+        <th>Cookie Duration</th>
+        <th>Status</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let abTest of _service.Filtered; let i = index;" [attr.data-index]="i">
+        <td>{{abTest.Name}}</td>
+        <!-- Site Name / Branch Code-->
+        <td>
+          <div class="padding-xs">
+            {{abTest.SWVALUE}}
+          </div>
+        </td>
+        <!-- Description -->
+        <td>
+          {{abTest.Description}}
+          <div *ngIf="abTest.Description == null" class="padding-xs">
+            N/A
+          </div>
+        </td>
+
+        <!-- Test Type (Reference) -->
+        <td>
+          {{abTest.Reference}}
+        </td>
+        <!-- Cookie Value -->
+        <td>
+          <div class="padding-xs">
+            {{abTest.CookieName}}
+          </div>
+        </td>
+        <!-- Cookie Duration -->
+        <td>
+          <div class="padding-xs">
+            {{abTest.CookiePersistenceDays}} Days
+          </div>
+        </td>
+        <!-- Status-->
+        <td>
+          {{abTest.Status}}
+        </td>
+        <td><i (click)="EditExperiment(_service.Filtered[i])" class="fa fa-pencil fa-2x clickable"></i></td>
+        <td><i (click)="OpenDelete(_service.Filtered[i])" class="fa fa-trash fa-2x clickable"></i></td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="_service.Filtered.length == 0">No Experiments found that match your filter criteria</p>
+  <!-- Table End -->
+</div>
+<div style="display:none">
+  <mat-spinner class="mat-spinner mat-progress-spinner mat-primary mat-progress-spinner-indeterminate-animation" mode="indeterminate" role="progressbar" style="margin-left: 42%; margin-top: 100px; width: 155px; height: 155px;" ng-reflect-diameter="150"><svg focusable="false" preserveAspectRatio="xMidYMid meet" viewBox="0 0 155 155" style="width: 155px; height: 155px;"><circle cx="50%" cy="50%" r="70" style="animation-name: mat-progress-spinner-stroke-rotate-150; stroke-dasharray: 439.823px; stroke-width: 9.67742%;"></circle></svg></mat-spinner>
+</div>

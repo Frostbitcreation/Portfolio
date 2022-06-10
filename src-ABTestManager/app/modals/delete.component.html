@@ -1,0 +1,34 @@
+<div style="position: relative; height: calc(100% - 30px); left:15px; right: 15px;">
+  <div style="overflow-y: auto">
+    <h3>Deletion Details</h3>
+    <hr />
+
+    <div class="container">
+
+      <div class="form-inline">
+        <label>A/B Test ID: </label> {{TestToDelete.ID}}
+      </div>
+      <div class="form-inline">
+        <label>Website: </label> {{TestToDelete.SWVALUE}}
+      </div>
+      <div class="form-inline">
+        <label>Cookie Name: </label> {{TestToDelete.CookieName}}
+      </div>
+      <div class="form-inline">
+        <label class="padding-right-sm">Cookie Duration: </label> {{TestToDelete.CookiePersistenceDays}} Days
+      </div>
+      <div class="form-inline">
+        <label>Reference: </label> {{TestToDelete.Reference}}
+      </div>
+      <div class="form-inline">
+        <label>Status: </label> {{TestToDelete.Status}}
+      </div>
+
+      <div class="controls-spaced">
+        <button (click)="ConfirmDelete()" class="btn btn-danger pull-left">Delete</button>
+        <button (click)="Close()" class="btn btn-default pull-right">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>

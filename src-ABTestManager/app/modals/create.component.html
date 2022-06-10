@@ -1,0 +1,20 @@
+<div style="position: relative; height: calc(100% - 20px); right: 10px">
+  <div style="height: calc(100% - 10px); overflow: hidden; overflow-y: auto">
+    <h2>Add Experiment</h2>
+    <ngb-tabset class="container">
+      <ngb-tab title="Experiment">
+        <ng-template ngbTabContent>
+          <ab-test-create-experiment></ab-test-create-experiment>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Variants">
+        <ng-template ngbTabContent>
+          <ab-test-create-variants></ab-test-create-variants>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <div class="modal-button-group padding-top-sm" style="bottom: -20px;">
+      <button (click)="Cancel()" class="btn btn-default">Close</button>
+    </div>
+  </div>
+</div>

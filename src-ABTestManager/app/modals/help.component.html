@@ -1,0 +1,62 @@
+<div class="page-header">
+  <h1>A/B Test Manager</h1>
+</div>
+<div>
+  <h2>
+    Help
+    <button style="margin-bottom: 20px" (click)="Close()" class="btn btn-default pull-right">Back</button>
+  </h2>
+
+  <div class="col-xs-12"></div>
+  <h3>Introduction</h3>
+  <p>
+    This tool allows you to view and to configure individual experiments, altering the percentage of users assigned to each variation
+    of an experiment, as well as the duration of an experiment.<br />
+    Each Google Optimize container can have up to 5 tests active at any time,
+    with the cookie duration being up to 90 days.<br />
+    New tests can be made in Google Optimize but will not show in the tool unless it's details are stored internally,
+    which will then allow for lmited chnages to be made to the experiment after it is running. <br />
+    <br />
+    <span style="color:green;font-weight:bold;">&#10004;</span> You'll use the tool to manage the duration a test is running for.<br />
+    <span style="color:green;font-weight:bold;">&#10004;</span> You'll use the tool to make changes to variations.<br />
+    <span style="color:red;font-weight:bold;">&#10005;</span> You won't use the tool to make new experiments.
+  </p>
+
+
+  <h3>How Experiments Work</h3>
+  <p>
+    An experiment is set up within Google Optimize and connected to a Google Analytics account that collates the desired data from the experiment.<br />
+    When a user accesses a site with a test, a check is done for a test cookie within the user data.<br />
+    If no cookie is found matching the name/values of the active site experiment, the user is assigned an experiment and their experience continues unimpeded.
+  </p>
+
+  <div class="col-xs-8">
+    <h3>Creating Experiments</h3>
+    <p>
+      A selected container, or in our case fascia, can have a maximum of 5 active experiments.<br />
+      You can schedule experiments to start and end at predetermined times within google optimize but the internal records of these experiments need to be updated to match.<br />
+      As a result, experiments are preferred to be started and ended manually.
+    </p>
+    <img src="Resources/Images/AbTestTool2.png" />
+    <br />
+
+    <h4>Variants</h4>
+    <p>
+      An experiment can have up to 8 variations and assigned a weight value.<br />
+      This percentage value is the chance of a variation to be assigned to a user that is a part of the experiment.<br />
+      The values of the experiments must add up to 100% to allow the experiment to be valid.
+    </p>
+    <img src="" />
+    <br />
+
+    <h4>Editing</h4>
+    <p>
+      Aspects of the experiments such as the weight of each variant can be adjusted while a test is live<br />
+      Every other value is recommended to be left unchanaged during a live experiment and are unavailable to be changed in the tool as a result.<br />
+      If any changes are needed or wanted, including changing the weights of variants in an experiment, it is recommended that a new experiment be made that is a copy using the new values.
+    </p>
+    <img src="" class="col-lg-4 col-md-6 col-xs-8" />
+    <br />
+  </div>
+  <div class="col-xs-12"><button style="margin-bottom: 20px" (click)="Close()" class="btn btn-default pull-right">Back</button></div>
+</div>

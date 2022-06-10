@@ -1,0 +1,29 @@
+<div style="position: relative; height: calc(100% - 30px); left:15px; right: 15px;">
+
+  <div style="overflow-y: auto">
+    <h3>Edit Test Variants</h3>
+    <hr />
+
+    <div class="form-inline">
+      <div class="form-group padding-left-lg" *ngFor="let variant of _service.Variants; let i = index;" [attr.data-index]="i">
+        <div style="display: flex;" class="padding-x-sm">
+          <strong class="padding-right-sm">Variant Name:</strong>
+          <div>{{variant.Name}}</div>
+        </div>
+        <div style="display: flex" class="padding-x-sm">
+          <strong class="padding-right-sm">Cookie Value:</strong>
+          <div>{{variant.CookieValue}}</div>
+        </div>
+        <div style="display: flex; align-items: center;">
+          <strong class="padding-right-sm">Percentage of Test Users:</strong>
+          <input class="form-control" maxlength="2" [(ngModel)]="variant.PercentageOfTestUsers" autocomplete="on" />
+        </div>
+      </div>
+    </div>
+
+    <div class="margin-xs padding-xs">
+      <button (click)="UpdateVariants()" class="btn btn-primary"><i class="fa fa-pencil"></i> Update Variants</button>
+    </div>
+
+  </div>
+</div>
